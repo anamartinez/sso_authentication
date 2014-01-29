@@ -10,3 +10,5 @@ gem 'jquery-rails'
 
 # Use debugger
 gem 'byebug', group: [:development, :test]
+
+gem 'redis'

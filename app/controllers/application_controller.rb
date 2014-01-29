@@ -29,6 +29,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize!
-    render text: 'Forbidden', status: :forbidden unless current_account
+    unless current_user
+      redirect_to auth_url(return_to: request.url)
+    end
   end
 end
