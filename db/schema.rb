@@ -18,12 +18,14 @@ ActiveRecord::Schema.define(version: 20140129020929) do
   end
 
   create_table "brands", force: true do |t|
-    t.string "domain"
+    t.string  "domain"
+    t.integer "account_id"
   end
 
   create_table "users", force: true do |t|
-    t.string "login"
-    t.string "password"
+    t.string  "login"
+    t.string  "password"
+    t.integer "account_id"
   end
 
 end
