@@ -3,8 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :ensure_account_or_brand
-  attr_accessor :current_account, :current_brand
+  before_filter :ensure_account_or_brand, :set_user
+
+  attr_accessor :current_account, :current_brand, :current_user
+  helper_method :current_account, :current_brand, :current_user
 
   protected
 
@@ -18,5 +20,15 @@ class ApplicationController < ActionController::Base
       self.current_account = current_brand.account
     end
 
+    render text: 'Not found', status: :not_found unless current_account
+  end
+
+  def set_user
+    return unless session[:user_id]
+    self.current_user = User.where(id: session[:user_id]).first
+  end
+
+  def authorize!
+    render text: 'Forbidden', status: :forbidden unless current_account
   end
 end

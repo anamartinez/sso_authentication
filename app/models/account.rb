@@ -1,3 +1,2 @@
-class User < ActiveRecord::Base
-  belongs_to :account
+class Account < ActiveRecord::Base
 end
