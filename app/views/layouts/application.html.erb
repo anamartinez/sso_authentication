@@ -4,6 +4,12 @@
   <title>ZendeskSsoAuthentication</title>
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
+
+  <%= content_for :head %>
+
+  <% if current_brand && !current_user %>
+    <script src="<%= auth_url(params.merge(host: current_account.host, format: :js, brand_id: current_brand.id)) %>"></script>
+  <% end %>
 </head>
 <body>
 

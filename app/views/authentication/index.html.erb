@@ -1,0 +1,22 @@
+<%= content_for :head do %>
+  <%= javascript_tag do %>
+    $(document).on('zendesk.authentication.load', function() {
+      if(Zendesk.redirect != '') {
+        window.location = Zendesk.redirect;
+      }
+    });
+  <% end %>
+<% end %>
+
+<%= form_for :user, url: auth_url(host: current_account.host) do |form| %>
+  <% if current_brand %>
+    <%= hidden_field_tag :csrf_key, @csrf_key %>
+    <%= hidden_field_tag :brand_id, current_brand.id %>
+  <% end %>
+
+  <%= hidden_field_tag :return_to, params[:return_to] %>
+
+  <p>Login: <%= form.text_field :login %></p>
+  <p>Password: <%= form.text_field :password %></p>
+  <%= submit_tag %>
+<% end %>

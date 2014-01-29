@@ -1,1 +1,5 @@
 Public
+
+<% if current_user %>
+  <%= current_user.login %> is logged in.
+<% end %>
